@@ -10,8 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <main>
+        <div class="header">
+            Header
+        </div>
+        <div class="body">
+            <form>
+                Username: <input type='text' id="userbox" ><br>
+                Password: <input type='password' id="passbox"><br>
+            </form>
+        </div>
+        </main>
     </body>
 </html>
