@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 02 16, 26, 8:54:12 AM
-    Author     : Saintan
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
