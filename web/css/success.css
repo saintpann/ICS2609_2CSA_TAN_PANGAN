@@ -1,0 +1,31 @@
+/* --- Success Page Specific Styles --- */
+
+.success-content {
+    text-align: center;
+    color: #000;
+}
+
+.success-content h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.success-content p {
+    font-size: 1.1rem;
+    margin-bottom: 35px;
+    color: #444;
+}
+
+/* Optional: If you want the logout button to look slightly different 
+   (e.g., a reddish tone to indicate an exit action), you can add a new class here.
+   Otherwise, it will just inherit the grey style from index.css's .submit-btn */
+   
+.logout-btn {
+    background-color: #a87b7b; 
+}
+
+.logout-btn:hover {
+    background-color: #8f6565;
+}
