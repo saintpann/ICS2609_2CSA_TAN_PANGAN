@@ -59,9 +59,10 @@ public class DataController extends HttpServlet {
         try {	
             if (conn != null) {
                     Statement stmt = conn.createStatement();
-                    ResultSet records = stmt.executeQuery("SELECT * FROM PERSON_INFO ORDER BY NAME");
+                    ResultSet records = stmt.executeQuery("SELECT * FROM USERS ORDER BY NAME");
                     request.setAttribute("results", records);
-                    request.getRequestDispatcher("displayresult.jsp").forward(request,response);
+//                    change jsp to corresponding jsp to show result
+                    request.getRequestDispatcher("index.jsp").forward(request,response);
             } else {
                     response.sendRedirect("error.jsp");
             }
