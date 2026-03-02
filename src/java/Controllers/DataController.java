@@ -72,10 +72,11 @@ public class DataController extends HttpServlet {
         } 
     }
     
+//    do not rely on get and post since it is a vulnerability, use processrequest on both and do validation there instead
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("error_1.jsp");
+        processRequest(request, response);
     }
     
     @Override
