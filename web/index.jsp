@@ -1,4 +1,11 @@
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@ page import="objects.User, javax.servlet.http.HttpSession" %>
+<%-- PREVENT BROWSER CACHING --%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +22,7 @@
 
     <main class="content-container">
         <div class="login-card">
-            <form action ="DataController" method="POST">
+            <form action ="login" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username">
@@ -26,7 +33,7 @@
                 <input type="password" id="password" name="password">
             </div>
 
-            <button type="submit" class="submit-btn">SUBMIT BUTTON</button>
+            <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>
     </main>
