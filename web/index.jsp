@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +15,7 @@
 
     <main class="content-container">
         <div class="login-card">
+            <form action ="DataController" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username">
@@ -26,6 +27,7 @@
             </div>
 
             <button type="submit" class="submit-btn">SUBMIT BUTTON</button>
+            </form>
         </div>
     </main>
 
