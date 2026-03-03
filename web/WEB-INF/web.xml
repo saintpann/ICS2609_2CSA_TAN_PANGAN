@@ -35,10 +35,6 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DataController</servlet-name>
-        <url-pattern>/DataController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
