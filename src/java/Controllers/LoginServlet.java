@@ -22,6 +22,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import Objects.IncorrectPassException;
+import Objects.IncorrectUserPassException;
+import Objects.NoUsernameFoundException;
+import Objects.NullValueException;
 
 /**
  *
@@ -59,99 +63,114 @@ public class LoginServlet extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException, NullValueException,
+            IncorrectPassException, IncorrectUserPassException,
+            NoUsernameFoundException {
+//        try {
             //Checking Database if the username and password exists
             if (conn!=null){
                 //System.out.println("Getting Connectio n..");
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                if(username.equals("")&&password.equals("")){
-                    throw new NullValueException("Username and Password cannot be blank");
-                }
-                
-                PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Email = ?");
-                ps.setString(1, username);
-                
-                //System.out.println("Executing Statement..");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    if(rs.getString("password").equals(password)){
-                    String role = rs.getString("UserRole");
-                    List<String[]> list = new ArrayList<>();
-                    Statement st = conn.createStatement();
-                    String query = "SELECT * FROM USERS";
-                    rs = st.executeQuery(query);
-                    while(rs.next()){
-                        String user = rs.getString("Email");
-                        String pass = rs.getString("Password");
-                        String urole = rs.getString("UserRole");
-                        
-                        list.add(new String[]{user,pass,urole});
+//                checks if username and password are blank
+                String message = "";
+                System.out.println("this ran");
+                try{
+                    if(username.trim().equals("")&&password.trim().equals("")){                    
+                        message = "Username and Password cannot be blank";
+                        throw new NullValueException(message);
                     }
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("role", role);
-                    request.setAttribute("result", rs);
-                    RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
-                    rd.forward(request, response);
+                
+                
+                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Email = ?");
+                    ps.setString(1, username);
+
+                    ResultSet rs = ps.executeQuery();
+    //              while loop to find each row if anything matches
+                    if (rs.next()) {
+                        if(rs.getString("password").equals(password)){
+                        String role = rs.getString("UserRole");
+                        List<String[]> list = new ArrayList<>();
+                        Statement st = conn.createStatement();
+                        String query = "SELECT * FROM USERS";
+                        rs = st.executeQuery(query);
+                        while(rs.next()){
+                            String user = rs.getString("Email");
+                            String pass = rs.getString("Password");
+                            String urole = rs.getString("UserRole");
+
+                            list.add(new String[]{user,pass,urole});
+                        }
+                        HttpSession session = request.getSession(true);
+                        session.setAttribute("role", role);
+                        request.setAttribute("result", rs);
+                        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
+                        rd.forward(request, response);
+                        }
+                        else{
+                            message = "Correct Username but Wrong Password";
+                            throw new IncorrectPassException(message);
+                        }
                     }
                     else{
-                        System.out.println("Correct Username but Wrong Password");
-                        response.sendRedirect("error_2.jsp");
+                        if(password.equals("")){
+                            message = "Incorrect Username and Empty Password";
+                            throw new NoUsernameFoundException(message);
+                        }
+                        else{
+                            message = "Incorrect Username and Password";
+                            response.sendRedirect("error_3.jsp");
+                            throw new IncorrectUserPassException(message);
+                        }
                     }
-                }
-                else{
-                    if(password.equals("")){
-                        System.out.println("Incorrect Username and Empty Password");
-                        response.sendRedirect("error_1.jsp");
-                    }
-                    else{
-                        System.out.println("Incorrect Username and Password");
-                        response.sendRedirect("error_3.jsp");
-                    }
+                } 
+                catch (SQLException sqle){
+                    throw new NoUsernameFoundException("Username not Found");
                 }
                 
             }
             
-        }
-        catch(SQLException sqle){
-            System.err.println("SQL EXCEPTION TRIGGERED!");
-            System.err.println("Error Message: " + sqle.getMessage());
-            response.sendRedirect("error_1.jsp");
-        }
-        catch(NullValueException nv){
-            System.err.println("Error Message:" + nv.getMessage());
-            response.sendRedirect("noLoginCredentials.jsp");
-        }
+//        }
+//        catch(SQLException sqle){
+//            System.err.println("SQL EXCEPTION TRIGGERED!");
+//            System.err.println("Error Message: " + sqle.getMessage());
+//            
+//            throw new NoUsernameFoundException();
+//            response.sendRedirect("error_1.jsp");
+//        }
+//        catch(NullValueException nv){
+//            throw new NullValueException();
+//        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request, response);
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("error_session.jsp");
+        processRequest(request, response);
     }
 
     @Override
     public String getServletInfo() {
         return "Servlet for processing login data before providing user access";
-    }// </editor-fold>
-
-    private static class NullValueException extends Exception {
-        String msg;
-        public NullValueException(String errormsg) {
-            this.msg = errormsg;
-        }
-        @Override
-        public String getMessage(){
-            return this.msg;
-        }
     }
+
+//    private static class NullValueException extends Exception {
+//        String msg;
+//        public NullValueException(String errormsg) {
+//            this.msg = errormsg;
+//        }
+//        @Override
+//        public String getMessage(){
+//            return this.msg;
+//        }
+//    }
 
 }

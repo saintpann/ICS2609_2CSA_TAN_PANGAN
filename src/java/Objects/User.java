@@ -1,4 +1,4 @@
-package objects;
+package Objects;
 
 public class User {
     private String username;

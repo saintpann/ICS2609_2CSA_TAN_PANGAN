@@ -1,9 +1,4 @@
-<%-- 
-    Document   : noLoginCredentials
-    Created on : 03 2, 26, 8:57:16 PM
-    Author     : Saintan
---%>
-
+<%@ page isErrorPage="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Incorrect Username and Password</h1>
     </body>
 </html>

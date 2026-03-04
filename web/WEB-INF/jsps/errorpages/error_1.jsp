@@ -1,9 +1,4 @@
-<%-- 
-    Document   : error
-    Created on : Mar 2, 2026, 8:43:27 AM
-    Author     : Kimberly
---%>
-
+<%@ page isErrorPage="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Username not found!</h1>
     </body>
 </html>
