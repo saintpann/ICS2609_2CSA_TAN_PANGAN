@@ -1,0 +1,75 @@
+/*removes scrollbar*/
+:root::-webkit-scrollbar { display: none; }
+
+/* --- Base Styles & Background --- */
+:root {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    /* Recreating the dark gradient background */
+    background: linear-gradient(180deg, #1c2331 0%, #11131c 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    
+}
+
+/* --- Sticky Header --- */
+.sticky-header {
+    font-weight: 700;
+    font-size: 1.5em;
+    font-style: normal;
+    /*position: sticky;*/
+    /*top: 20px;  Sticks 20px from the top*/ 
+    /*margin: 20px auto;*/
+    /*width: calc(100% - 40px);  Leaves gap on the sides */
+    /*max-width: 1200px;*/
+    width: 100%;
+    background-color: #37465b;
+    color: #ffffff;
+    padding: 0 30px;
+    /*border-radius: 15px;*/
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* --- Main Content (Centers the card) --- */
+.content-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* --- Login Card --- */
+h1 {
+    font-weight: 600;
+    text-align: center;
+    font-size: 3em;
+}
+
+.login-card {
+    background-color: #cccccc;
+    padding: 50px 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+/* --- Pill Footer --- */
+.pill-footer {
+    background-color: #3b3e51;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+    min-width: 600px;
+}

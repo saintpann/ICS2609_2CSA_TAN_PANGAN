@@ -12,13 +12,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Success Dashboard</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/success.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/success.css">
 </head>
 <body>
 
     <header class="sticky-header">
-        HEADER PLACEHOLDER TEXT (static / sticky)
+        <jsp:include page="<%= (String)application.getAttribute("header") %>" />
     </header>
 
     <main class="content-container">
@@ -35,7 +37,7 @@
     </main>
 
     <footer class="pill-footer">
-        FOOTER PLACEHOLDER TEXT
+        <jsp:include page="<%= (String)application.getAttribute("footer") %>" />
     </footer>
 
 </body>

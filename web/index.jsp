@@ -7,6 +7,10 @@
     response.setDateHeader("Expires", 0); // Proxies
 %>
 <!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,20 +21,21 @@
 <body>
 
     <header class="sticky-header">
-        HEADER PLACEHOLDER TEXT (static / sticky )
+        <jsp:include page="<%= (String)application.getAttribute("header") %>" />
     </header>
 
     <main class="content-container">
         <div class="login-card">
             <form action ="login" method="POST">
+                <h1>Login</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" autocomplete="off">
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" autocomplete="off">
             </div>
 
             <button type="submit" class="submit-btn">Submit</button>
@@ -39,7 +44,7 @@
     </main>
 
     <footer class="pill-footer">
-        FOOTER PLACEHOLDER TEXT
+        <jsp:include page="<%= (String)application.getAttribute("footer") %>" />
     </footer>
 
 </body>

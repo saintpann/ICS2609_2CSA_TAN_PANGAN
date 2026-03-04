@@ -5,8 +5,9 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Epunda+Sans:ital,wght@0,300..900;1,300..900&family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=IM+Fell+English:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=McLaren&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/indexStyles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>error</title>
         <style>
@@ -18,9 +19,9 @@
         </style>
     </head>
     <body>
-        <header>
-            <jsp:include page="<%= (String)application.getAttribute("header") %>" />
+        <header class="sticky-header">
+            <jsp:include page="<%= (String) application.getAttribute("header") %>" />
         </header>
-        <main>
-            <div class="login-container">
+        <main class="content-container">
+            <div class="login-card">
                 
