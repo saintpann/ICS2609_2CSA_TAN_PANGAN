@@ -24,21 +24,31 @@
         <jsp:include page="<%= (String)application.getAttribute("header") %>" />
     </header>
 
+        <%
+            String username = (String) request.getAttribute("username");
+            String password = (String) request.getAttribute("password");
+            String role = (String) request.getAttribute("role");
+        %>
     <main class="content-container">
         <div class="login-card">
-            <form action ="logic" method="POST">
+            <form action ="crud" method="POST">
                 <h1>Login</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" autocomplete="off">
+                <input type="text" id="username" name="username" value="<%=username%>" autocomplete="off" readonly>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" autocomplete="off">
+                <input type="text" id="password" name="password" value="<%=password%>" autocomplete="off">
             </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" name="role" value="<%=role%>" autocomplete="off">
+            </div> 
+                
+                <button type="submit" class="submit-btn" name="btn" value="update">Update</button>
             </form>
         </div>
     </main>

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page import="Objects.User, javax.servlet.http.HttpSession" %>
 <%-- PREVENT BROWSER CACHING --%>
 <%
@@ -18,24 +20,82 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/success.css">
 </head>
 <body>
-
+    <% 
+        User currentuser = (User)session.getAttribute("user");
+        String username = currentuser.getUsername();
+        String role = currentuser.getRole();
+        Object obj = request.getAttribute("list");
+        List<String[]> list = (ArrayList<String[]>) obj;
+    %>
+        
     <header class="sticky-header">
         <jsp:include page="<%= (String)application.getAttribute("header") %>" />
     </header>
-
+        
     <main class="content-container">
         <div class="login-card success-content">
-            
-            <h2>Welcome, Marc Stephen S. Pangan!</h2>
-            <p>Role: <strong>Administrator</strong></p>
+            <% if(role.equals("Guest")) {%>
+            <h2><%=username%></h2>
+            <p>Role: <strong><%=role%></strong></p>
 
-            <form action="logoutAction" method="POST">
+            <form action="logout">
                 <button type="submit" class="submit-btn">LOGOUT</button>
             </form>
-
+            <% } else if(role.equals("Admin")){%>
+                <h2><%=username%></h2>
+                <p>Role: <strong><%=role%></strong></p>
+                <form action="logout">
+                <button type="submit" class="submit-btn">LOGOUT</button>
+                </form>
+                <form action="add" method="POST">
+                    <label for="username">Username:</label><input type="text" name="username">
+                    <label for="password">Password:</label><input type="text" name="password"> 
+                    <label for="role">Role:</label><input type="text" name="role">
+                    <input type="submit" value="add">
+                </form>
+                <table border="1">
+                    <thead>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Role</th> 
+                    <th>Actions</th>
+                    </thead>
+                    <tbody>
+                <%
+                    
+                    for(String[] sar : list){
+                        boolean isMe = currentuser != null && sar[0].equals(currentuser.getUsername());
+                %>
+                      <tr>  
+                        <td><%=sar[0]%></td>
+                        <td><%=sar[1]%></td>
+                        <td><%=sar[2]%></td>
+                        <td>
+                        <form action="update" method="POST">  
+                            <input type="hidden" name="username" value="<%= sar[0] %>">
+                            <input type="hidden" name="password" value="<%= sar[1] %>">
+                            <input type="hidden" name="role" value="<%= sar[2] %>">
+                            <input type="submit" class="submit-btn" value="updateforward"></input>
+                        </form>
+                            <%if(!isMe){%>
+                        <form action="crud" method="POST">  
+                            <input type="hidden" name="username" value="<%= sar[0] %>">
+                            <input type="hidden" name="password" value="<%= sar[1] %>">
+                            <input type="hidden" name="role" value="<%= sar[2] %>">
+                            <input type="submit" class="submit-btn" name="btn" value="delete"></input>
+                        </form>
+                            <%}%>else { %>
+                            <span style="color:gray;">(You)</span>
+                            <% } %>
+                        </td>
+                      </tr>
+                <%}%>
+                    </tbody>
+                </table>
+            <%}%>
         </div>
     </main>
-
+         
     <footer class="pill-footer">
         <jsp:include page="<%= (String)application.getAttribute("footer") %>" />
     </footer>

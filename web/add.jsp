@@ -26,7 +26,7 @@
 
     <main class="content-container">
         <div class="login-card">
-            <form action ="logic" method="POST">
+            <form action ="crud" method="POST">
                 <h1>Login</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -35,10 +35,15 @@
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" autocomplete="off">
+                <input type="text" id="password" name="password" autocomplete="off">
             </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" name="role" autocomplete="off">
+            </div> 
+                
+                <button type="submit" class="submit-btn" name="btn" value="add">Add</button>
             </form>
         </div>
     </main>

@@ -26,6 +26,7 @@ import Objects.IncorrectPassException;
 import Objects.IncorrectUserPassException;
 import Objects.NoUsernameFoundException;
 import Objects.NullValueException;
+import Objects.User;
 
 /**
  *
@@ -84,7 +85,7 @@ public class LoginServlet extends HttpServlet {
                     }
                 
                 
-                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Email = ?");
+                    try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Email = ?")){
                     ps.setString(1, username);
 
                     ResultSet rs = ps.executeQuery();
@@ -92,22 +93,15 @@ public class LoginServlet extends HttpServlet {
                     if (rs.next()) {
                         if(rs.getString("password").equals(password)){
                         String role = rs.getString("UserRole");
-                        List<String[]> list = new ArrayList<>();
-                        Statement st = conn.createStatement();
-                        String query = "SELECT * FROM USERS";
-                        rs = st.executeQuery(query);
-                        while(rs.next()){
-                            String user = rs.getString("Email");
-                            String pass = rs.getString("Password");
-                            String urole = rs.getString("UserRole");
-
-                            list.add(new String[]{user,pass,urole});
-                        }
                         HttpSession session = request.getSession(true);
-                        session.setAttribute("role", role);
-                        request.setAttribute("result", rs);
-                        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
-                        rd.forward(request, response);
+                        User currentuser = new User();
+                        currentuser.setUsername(username);
+                        currentuser.setPassword(password);
+                        currentuser.setRole(role);
+                        
+                        session.setAttribute("user", currentuser);
+                        response.sendRedirect("success");
+                        return;
                         }
                         else{
                             message = "Correct Username but Wrong Password";
@@ -121,9 +115,9 @@ public class LoginServlet extends HttpServlet {
                         }
                         else{
                             message = "Incorrect Username and Password";
-                            response.sendRedirect("error_3.jsp");
                             throw new IncorrectUserPassException(message);
                         }
+                    }
                     }
                 } 
                 catch (SQLException sqle){
@@ -148,13 +142,28 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+            try {
+                processRequest(request, response);
+            } catch (NullValueException | IncorrectPassException | 
+                     IncorrectUserPassException | NoUsernameFoundException e) {
+
+                // Option A: Forward to an error page with the message
+                request.setAttribute("errorMessage", e.getMessage());
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+                // Option B: If you have web.xml configured for these exceptions:
+                // throw new ServletException(e);
+            }
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if(session!=null){
+            session.invalidate();
+        }
+        response.sendRedirect("login");
     }
 
     @Override
