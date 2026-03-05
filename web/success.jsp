@@ -37,13 +37,11 @@
             <% if(role.equals("Guest")) {%>
             <h2><%=username%></h2>
             <p>Role: <strong><%=role%></strong></p>
-
             <form action="logout">
                 <button type="submit" class="submit-btn">LOGOUT</button>
             </form>
             <% } else if(role.equals("Admin")){%>
-                <h2><%=username%></h2>
-                <p>Role: <strong><%=role%></strong></p>
+                <h2>Welcome <strong><%=role%></strong></h2>
                 <form action="logout">
                 <button type="submit" class="submit-btn">LOGOUT</button>
                 </form>
