@@ -48,10 +48,7 @@
                 <button type="submit" class="submit-btn">LOGOUT</button>
                 </form>
                 <form action="add" method="POST">
-                    <label for="username">Username:</label><input type="text" name="username">
-                    <label for="password">Password:</label><input type="text" name="password"> 
-                    <label for="role">Role:</label><input type="text" name="role">
-                    <input type="submit" value="add">
+                    <button type="submit" class="submit-btn" value="add">Add</button>
                 </form>
                 <table border="1">
                     <thead>
@@ -70,24 +67,22 @@
                         <td><%=sar[0]%></td>
                         <td><%=sar[1]%></td>
                         <td><%=sar[2]%></td>
-                        <td>
-                        <form action="update" method="POST">  
-                            <input type="hidden" name="username" value="<%= sar[0] %>">
-                            <input type="hidden" name="password" value="<%= sar[1] %>">
-                            <input type="hidden" name="role" value="<%= sar[2] %>">
-                            <input type="submit" class="submit-btn" value="updateforward"></input>
-                        </form>
-                            <%if(!isMe){%>
+                        <td><%if(!isMe){%>
                         <form action="crud" method="POST">  
                             <input type="hidden" name="username" value="<%= sar[0] %>">
                             <input type="hidden" name="password" value="<%= sar[1] %>">
                             <input type="hidden" name="role" value="<%= sar[2] %>">
-                            <input type="submit" class="submit-btn" name="btn" value="delete"></input>
+                            <button type="submit" class="submit-btn" name="btn" value="delete">Delete</input>
                         </form>
-                            <%}%>else { %>
+                            <%} else { %>
                             <span style="color:gray;">(You)</span>
                             <% } %>
-                        </td>
+                        <form action="update" method="POST">  
+                            <input type="hidden" name="username" value="<%= sar[0] %>">
+                            <input type="hidden" name="password" value="<%= sar[1] %>">
+                            <input type="hidden" name="role" value="<%= sar[2] %>">
+                            <button type="submit" class="submit-btn" value="update">Update</input>
+                        </form></td>
                       </tr>
                 <%}%>
                     </tbody>

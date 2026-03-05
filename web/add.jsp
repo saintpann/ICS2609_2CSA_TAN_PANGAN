@@ -27,7 +27,7 @@
     <main class="content-container">
         <div class="login-card">
             <form action ="crud" method="POST">
-                <h1>Login</h1>
+                <h1>Add</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" autocomplete="off">
@@ -40,10 +40,16 @@
 
             <div class="form-group">
                 <label for="role">Role:</label>
-                <input type="text" id="role" name="role" autocomplete="off">
+                <select id="role" name="role">
+                    <option value="Guest">Guest</option>
+                    <option value="Admin">Admin</option>
+                </select>
             </div> 
                 
                 <button type="submit" class="submit-btn" name="btn" value="add">Add</button>
+            </form>
+            <form action="success" method="GET">
+                <button type="submit" class="submit-btn" >Return</button>
             </form>
         </div>
     </main>

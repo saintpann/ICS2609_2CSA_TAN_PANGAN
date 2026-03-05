@@ -25,14 +25,14 @@
     </header>
 
         <%
-            String username = (String) request.getAttribute("username");
-            String password = (String) request.getAttribute("password");
-            String role = (String) request.getAttribute("role");
+            String username = (String) request.getParameter("username");
+            String password = (String) request.getParameter("password");
+            String role = (String) request.getParameter("role");
         %>
     <main class="content-container">
         <div class="login-card">
             <form action ="crud" method="POST">
-                <h1>Login</h1>
+                <h1>Update</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" value="<%=username%>" autocomplete="off" readonly>
@@ -45,10 +45,16 @@
 
             <div class="form-group">
                 <label for="role">Role:</label>
-                <input type="text" id="role" name="role" value="<%=role%>" autocomplete="off">
+                <select id="role" name="role">
+                    <option value="Guest">Guest</option>
+                    <option value="Admin">Admin</option>
+                </select>
             </div> 
                 
                 <button type="submit" class="submit-btn" name="btn" value="update">Update</button>
+            </form>
+            <form action="success" method="GET">
+                <button type="submit" class="submit-btn" >Return</button>
             </form>
         </div>
     </main>
