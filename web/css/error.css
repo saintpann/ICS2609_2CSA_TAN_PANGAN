@@ -36,3 +36,13 @@ p {
     transition: padding 0.2s ease-in-out;
 }
 
+@media screen and (max-width: 600px){
+    header, footer{
+        display: none !important;
+    }
+    
+    .login-card{
+        margin: 0 10px !important;
+        min-width: 300px !important;
+    }
+}
