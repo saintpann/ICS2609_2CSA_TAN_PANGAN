@@ -44,11 +44,11 @@ public class CRUDServlet extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("user");
             if(username.equals(user.getUsername())){response.sendRedirect("success");}
-            query = "DELETE FROM USERS WHERE Email = ?";
+            query = "DELETE FROM USERS WHERE Username = ?";
         } else if (clickbtn.equals("update")) {
-            query = "UPDATE USERS SET Password = ?, UserRole = ? WHERE Email = ?";
+            query = "UPDATE USERS SET Password = ?, Role = ? WHERE Username = ?";
         } else if (clickbtn.equals("add")) {
-            query = "INSERT INTO Users(Email, Password, UserRole) VALUES (?,?,?)";
+            query = "INSERT INTO Users(Username, Password, Role) VALUES (?,?,?)";
         }
         
         

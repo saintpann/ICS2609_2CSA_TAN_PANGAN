@@ -79,13 +79,13 @@ public class LoginServlet extends HttpServlet {
                         System.out.println("Should go to noLoginCredentials.jsp");
                         throw new NullValueException(message);
                     }
-                    try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Email = ?")){
+                    try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE Username = ?")){
                     ps.setString(1, username);
                     ResultSet rs = ps.executeQuery();
     //              while loop to find each row if anything matches
                     if (rs.next()) {
                         if(rs.getString("password").equals(password)){
-                        String role = rs.getString("UserRole");
+                        String role = rs.getString("Role");
                         HttpSession session = request.getSession(true);
                         User currentuser = new User();
                         currentuser.setUsername(username);

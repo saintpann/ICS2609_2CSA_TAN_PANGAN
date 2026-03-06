@@ -53,9 +53,9 @@ public class SuccessServlet extends HttpServlet {
                 ResultSet rs = st.executeQuery("SELECT * FROM USERS");
                 while(rs.next()){
 
-                    String user = rs.getString("Email");
+                    String user = rs.getString("Username");
                     String pass = rs.getString("Password");
-                    String urole = rs.getString("UserRole");
+                    String urole = rs.getString("Role");
 
                     list.add(new String[]{user,pass,urole});
                 }
