@@ -1,5 +1,5 @@
 // main exception class for authentication
-package Objects;
+package miscs;
 
 import javax.servlet.ServletException;
 

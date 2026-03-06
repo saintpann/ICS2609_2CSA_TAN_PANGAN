@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package controller;
 
-import Objects.User;
+import miscs.EstablishConnection;
+import miscs.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.servlet.ServletConfig;
@@ -30,40 +29,9 @@ public class CRUDServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
-        try{
-            Class.forName(config.getInitParameter("jdbcClassName"));
-            System.out.println("Connecting to jdbcClassName: " + config.getInitParameter("jdbcClassName"));
-            String username = config.getInitParameter("dbUserName");
-            String password = config.getInitParameter("dbPassword");
-            StringBuffer url = new StringBuffer(config.getInitParameter("jdbcDriverURL"))
-                            .append("://")
-                            .append(config.getInitParameter("dbHostName"))
-                            .append(":")
-                            .append(config.getInitParameter("dbPort"))
-                            .append("/")
-                            .append(config.getInitParameter("databaseName"));
-            System.out.println("Connecting to connection.. "+url);
-            String urls ="jdbc:derby://localhost:1527/LoginDB";
-            conn = DriverManager.getConnection(urls,username,password);
-            System.out.println(conn);
-        }
-        catch (SQLException sqle){
-                    System.out.println("SQLException error occured - " 
-                            + sqle.getMessage());
-        } catch (ClassNotFoundException nfe){
-                    System.out.println("ClassNotFoundException error occured - " 
-                    + nfe.getMessage());
-            }
+        conn = new EstablishConnection(getServletContext()).getConnection();
     }
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String clickbtn = request.getParameter("btn") == null ? "" : request.getParameter("btn").trim();

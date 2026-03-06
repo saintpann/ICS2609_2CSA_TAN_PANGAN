@@ -1,4 +1,4 @@
-package Objects;
+package miscs;
 // good for error_2.jsp
 public class IncorrectPassException extends AuthenticationException {
     public IncorrectPassException(String message){

@@ -1,4 +1,4 @@
-package Objects;
+package miscs;
 import javax.servlet.ServletException;
 
 public class NullValueException extends ServletException {

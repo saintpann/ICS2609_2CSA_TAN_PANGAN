@@ -1,3 +1,4 @@
+<%@ page isErrorPage="true" %>
 <%@ include file="errorheader.jsp" %>
     <h1>Authentication Error</h1>
     <p>Username not found!</p>

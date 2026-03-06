@@ -1,5 +1,5 @@
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <%@ page import="Objects.User, javax.servlet.http.HttpSession" %>
+    <%@ page import="miscs.User, javax.servlet.http.HttpSession" %>
 <%-- PREVENT BROWSER CACHING --%>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP2</title>
+    <title>add</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>

@@ -1,4 +1,4 @@
-
+<%@ page isErrorPage="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>error</title>
+        <title>Error page!</title>
         <style>
             .image{
                 width: 15em;

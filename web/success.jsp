@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="Objects.User, javax.servlet.http.HttpSession" %>
+<%@page import="miscs.User, javax.servlet.http.HttpSession" %>
 <%-- PREVENT BROWSER CACHING --%>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1

@@ -1,4 +1,4 @@
-package Objects;
+package miscs;
 
 public class User {
     private String username;
