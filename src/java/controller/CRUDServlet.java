@@ -75,7 +75,7 @@ public class CRUDServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendError(500);
+        response.sendError(405);
     }
 
     @Override
