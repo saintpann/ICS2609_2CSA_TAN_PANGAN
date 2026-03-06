@@ -24,16 +24,10 @@ body {
     font-weight: 700;
     font-size: 1.5em;
     font-style: normal;
-    /*position: sticky;*/
-    /*top: 20px;  Sticks 20px from the top*/ 
-    /*margin: 20px auto;*/
-    /*width: calc(100% - 40px);  Leaves gap on the sides */
-    /*max-width: 1200px;*/
     width: 100%;
     background-color: #37465b;
     color: #ffffff;
     padding: 0 30px;
-    /*border-radius: 15px;*/
     box-sizing: border-box;
     text-align: center;
 }
@@ -59,7 +53,8 @@ h1 {
     padding: 50px 40px;
     border-radius: 15px;
     width: 100%;
-    max-width: 550px;
+    min-width: 550px;
+    max-width: 800px;
     box-sizing: border-box;
 }
 

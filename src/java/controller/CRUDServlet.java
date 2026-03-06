@@ -38,7 +38,7 @@ public class CRUDServlet extends HttpServlet {
         String username = request.getParameter("username") == null ? "" : request.getParameter("username").trim();
         String password = request.getParameter("password") == null ? "" : request.getParameter("password").trim();
         String role     = request.getParameter("role") == null ? "" : request.getParameter("role").trim();
-        
+        System.out.println(role);
         String query = "";
         if (clickbtn.equals("delete")) {
             HttpSession session = request.getSession();

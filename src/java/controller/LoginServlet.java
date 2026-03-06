@@ -21,7 +21,9 @@ import miscs.IncorrectUserPassException;
 import miscs.NoUsernameFoundException;
 import miscs.NullValueException;
 import miscs.User;
-import miscs.EstablishConnection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Saintan
@@ -33,7 +35,30 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
-        conn = new EstablishConnection(getServletContext()).getConnection();
+        try{
+            Class.forName(config.getInitParameter("jdbcClassName"));
+            System.out.println("Connecting to jdbcClassName: " + config.getInitParameter("jdbcClassName"));
+            String username = config.getInitParameter("dbUserName");
+            String password = config.getInitParameter("dbPassword");
+            StringBuffer url = new StringBuffer(config.getInitParameter("jdbcDriverURL"))
+                            .append("://")
+                            .append(config.getInitParameter("dbHostName"))
+                            .append(":")
+                            .append(config.getInitParameter("dbPort"))
+                            .append("/")
+                            .append(config.getInitParameter("databaseName"));
+            System.out.println("Connecting to connection.. "+url);
+            String urls = url.toString();
+            conn = DriverManager.getConnection(urls,username,password);
+            System.out.println(conn);
+        }
+        catch (SQLException sqle){
+                    System.out.println("SQLException error occured - " 
+                            + sqle.getMessage());
+        } catch (ClassNotFoundException nfe){
+                    System.out.println("ClassNotFoundException error occured - " 
+                    + nfe.getMessage());
+        }
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

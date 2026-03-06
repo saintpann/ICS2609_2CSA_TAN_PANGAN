@@ -5,6 +5,23 @@
     color: #000;
 }
 
+.submit-btn {
+    display: inline;
+    width: auto;
+    padding: 5px;
+    margin: 5px auto;
+    min-width: 90px;
+    transition: none !important;
+}
+
+.submit-btn:hover{
+    width: auto;
+    padding: 5px;
+    margin: 5px auto;
+    min-width: 90px;
+    transition:none !important;
+}
+
 .success-content h2 {
     margin-top: 0;
     font-size: 1.8rem;
@@ -18,10 +35,47 @@
     color: #444;
 }
 
-/* Optional: If you want the logout button to look slightly different 
-   (e.g., a reddish tone to indicate an exit action), you can add a new class here.
-   Otherwise, it will just inherit the grey style from index.css's .submit-btn */
-   
+.success-div-btn form{
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+.success-div-btn{
+    display:grid;
+    width: auto;
+    grid-template-rows: 0.5fr 0.25fr;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    grid-auto-flow: row;
+}
+
+.success-div {
+    display:grid;
+    width: auto;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: min-content;
+    vertical-align: middle;
+    row-gap:5px;
+}
+
+.success-div div {
+    box-sizing: border-box; 
+    padding: 5px;
+    border: 0.5px solid black;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    align-items: center;
+}
+
+.success-div-body-btn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
 .logout-btn {
     background-color: #a87b7b; 
 }
@@ -29,3 +83,28 @@
 .logout-btn:hover {
     background-color: #8f6565;
 }
+
+@media (max-width: 600px) {
+    .success-div-body-btn {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        align-items: center;
+    }
+    
+    p{
+        font-size: 12px !important;
+    }
+    
+    .submit-btn {
+        font-size: 12px !important;
+        min-width: 40px !important;
+        transition: font-size 0.2s ease-in, min-width 0.2s ease-in;
+        padding: 5px 20px;
+    }
+    
+    .success-div-btn .success-div-btn .success-div-btn{
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 2fr !important;
+    }
+}
+

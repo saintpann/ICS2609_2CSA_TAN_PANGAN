@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP2</title>
+    <title>update</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -25,6 +25,8 @@
     </header>
 
         <%
+            User currentuser = (User) session.getAttribute("user");
+            String currentusername = currentuser.getUsername();
             String username = (String) request.getParameter("username");
             String password = (String) request.getParameter("password");
             String role = (String) request.getParameter("role");
@@ -42,15 +44,27 @@
                 <label for="password">Password:</label>
                 <input type="text" id="password" name="password" value="<%=password%>" autocomplete="off">
             </div>
-
+            <% if (!currentusername.equals(username)){%>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role">
+                        <option value="Guest">Guest</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div> 
+            <%}else{%>
             <div class="form-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role">
-                    <option value="Guest">Guest</option>
-                    <option value="Admin">Admin</option>
-                </select>
-            </div> 
-                
+                    <label for="roler">Role:</label>
+                    <select name = "roler" disabled>
+                        <option value="Guest">Guest</option>
+                        <option value="Admin" selected>Admin</option>
+                    </select>
+                    <select id="role" name="role" hidden>
+                        <option value="Guest">Guest</option>
+                        <option value="Admin" selected>Admin</option>
+                    </select>
+                </div> 
+            <%}%>
                 <button type="submit" class="submit-btn" name="btn" value="update">Update</button>
             </form>
             <form action="success" method="GET">

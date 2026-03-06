@@ -21,7 +21,7 @@
 </head>
 <body>
     <% 
-        User currentuser = (User)session.getAttribute("user");
+        User currentuser = (User) session.getAttribute("user");
         String username = currentuser.getUsername();
         String role = currentuser.getRole();
         Object obj = request.getAttribute("list");
@@ -38,53 +38,58 @@
             <h2><%=username%></h2>
             <p>Role: <strong><%=role%></strong></p>
             <form action="logout">
-                <button type="submit" class="submit-btn">LOGOUT</button>
+                <button type="submit" class="submit-btn">Logout</button>
             </form>
             <% } else if(role.equals("Admin")){%>
-                <h2>Welcome <strong><%=role%></strong></h2>
-                <form action="logout">
-                <button type="submit" class="submit-btn">LOGOUT</button>
-                </form>
-                <form action="add" method="POST">
-                    <button type="submit" class="submit-btn" value="add">Add</button>
-                </form>
-                <table border="1">
-                    <thead>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th> 
-                    <th>Actions</th>
-                    </thead>
-                    <tbody>
+                <div class="success-div-btn">
+                    <div><h2>Welcome <strong><%=username%></strong></h2></div>
+                    <div class="success-div-btn">
+                        <div></div>
+                        <div class="success-div-btn">
+                            <form action="add" method="POST">
+                                <button type="submit" class="submit-btn" value="add">Add</button>
+                            </form>
+                            <form action="logout">
+                                <button type="submit" class="submit-btn">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--<table border="1">-->
+                    <div class="success-div">
+                    <div><p>Username</p></div>
+                    <div><p>Password</p></div>
+                    <div><p>Role</p></div> 
+                    <div><p>Actions</p></div>
+                    <!--<tbody>-->
                 <%
                     
                     for(String[] sar : list){
                         boolean isMe = currentuser != null && sar[0].equals(currentuser.getUsername());
                 %>
-                      <tr>  
-                        <td><%=sar[0]%></td>
-                        <td><%=sar[1]%></td>
-                        <td><%=sar[2]%></td>
-                        <td><%if(!isMe){%>
-                        <form action="crud" method="POST">  
-                            <input type="hidden" name="username" value="<%= sar[0] %>">
-                            <input type="hidden" name="password" value="<%= sar[1] %>">
-                            <input type="hidden" name="role" value="<%= sar[2] %>">
-                            <button type="submit" class="submit-btn" name="btn" value="delete">Delete</input>
-                        </form>
-                            <%} else { %>
-                            <span style="color:gray;">(You)</span>
-                            <% } %>
-                        <form action="update" method="POST">  
-                            <input type="hidden" name="username" value="<%= sar[0] %>">
-                            <input type="hidden" name="password" value="<%= sar[1] %>">
-                            <input type="hidden" name="role" value="<%= sar[2] %>">
-                            <button type="submit" class="submit-btn" value="update">Update</input>
-                        </form></td>
-                      </tr>
+                        <div><p><%=sar[0]%></p></div>
+                        <div><p><%=sar[1]%></p></div>
+                        <div><p><%=sar[2]%></p></div>
+                        <div class = "success-div-body-btn">
+                            <%if(!isMe){%>
+                            <form action="crud" method="POST">  
+                                <input type="hidden" name="username" value="<%= sar[0] %>">
+                                <input type="hidden" name="password" value="<%= sar[1] %>">
+                                <input type="hidden" name="role" value="<%= sar[2] %>">
+                                <button type="submit" class="submit-btn" name="btn" value="delete">Delete</input>
+                            </form>
+                                <%} else { %>
+                                <span style="color:gray;">(You)</span>
+                                <% } %>
+                            <form action="update" method="POST">  
+                                <input type="hidden" name="username" value="<%= sar[0] %>">
+                                <input type="hidden" name="password" value="<%= sar[1] %>">
+                                <input type="hidden" name="role" value="<%= sar[2] %>">
+                                <button type="submit" class="submit-btn" value="update">Update</input>
+                            </form>
+                        </div>
                 <%}%>
-                    </tbody>
-                </table>
+                    </div>
             <%}%>
         </div>
     </main>
