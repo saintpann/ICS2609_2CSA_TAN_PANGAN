@@ -38,7 +38,7 @@
             <h2><%=username%></h2>
             <p>Role: <strong><%=role%></strong></p>
             <form action="logout">
-                <button type="submit" class="submit-btn">Logout</button>
+                <button type="submit" class="submit-gst-btn">Logout</button>
             </form>
             <% } else if(role.equals("Admin")){%>
                 <div class="success-div-btn">

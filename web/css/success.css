@@ -5,6 +5,26 @@
     color: #000;
 }
 
+.submit-gst-btn {
+    display: block;
+    margin: 40px auto 0;
+    background-color: #919191;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, padding 0.2s ease-in-out;
+    border-radius: 10px;
+}
+
+.submit-gst-btn:hover {
+    background-color: #5a5a5a;
+    padding: 15px 3em;
+    transition: padding 0.2s ease-in-out;
+}
+
 .submit-btn {
     display: inline;
     width: auto;
