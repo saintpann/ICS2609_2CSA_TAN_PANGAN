@@ -5,6 +5,26 @@
         <param-value>ICS2609/2CSA/Pangan - Tan</param-value>
     </context-param>
     <context-param>
+        <param-name>secretKey</param-name>
+        <param-value>caesarsaladisyum</param-value>
+    </context-param>
+    <context-param>
+        <param-name>cipherAlgorithm</param-name>
+        <param-value>AES</param-value>
+    </context-param>
+    <context-param>
+        <param-name>cipherMode</param-name>
+        <param-value>ECB</param-value>
+    </context-param>
+    <context-param>
+        <param-name>cipherPadding</param-name>
+        <param-value>PKCS5Padding</param-value>
+    </context-param>
+    <context-param>
+        <param-name>captchaLength</param-name>
+        <param-value>8</param-value>
+    </context-param>
+    <context-param>
         <param-name>jdbcClassName</param-name>
         <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
     </context-param>
