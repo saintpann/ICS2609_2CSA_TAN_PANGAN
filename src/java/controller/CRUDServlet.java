@@ -12,11 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import miscs.Cryptograph;
 
 /**
  *
@@ -25,11 +27,15 @@ import javax.servlet.http.HttpSession;
 public class CRUDServlet extends HttpServlet {
 
     private Connection conn;
-    
+    private Cryptograph cryptographer;
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
         conn = new EstablishConnection(getServletContext()).getConnection();
+        
+        ServletContext context = getServletContext();
+            cryptographer = new Cryptograph(context.getInitParameter("secretKey"),
+                context.getInitParameter("cipherAlgorithm"),context.getInitParameter("cipherMode"),context.getInitParameter("cipherPadding"));
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +45,7 @@ public class CRUDServlet extends HttpServlet {
         String password = request.getParameter("password") == null ? "" : request.getParameter("password").trim();
         String role     = request.getParameter("role") == null ? "" : request.getParameter("role").trim();
         System.out.println(role);
+        password = cryptographer.encrypt(password);
         String query = "";
         if (clickbtn.equals("delete")) {
             HttpSession session = request.getSession();

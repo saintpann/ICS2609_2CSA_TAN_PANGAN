@@ -42,7 +42,7 @@
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="text" id="password" name="password" value="<%=password%>" autocomplete="off">
+                <input type="text" id="password" name="password" value="<%=password%>" autocomplete="off" maxlength="20">
             </div>
             <% if (!currentusername.equals(username)){%>
                 <div class="form-group">

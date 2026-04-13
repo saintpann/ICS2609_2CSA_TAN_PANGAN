@@ -3,6 +3,7 @@ package miscs;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import javax.crypto.Cipher;
+
 import javax.crypto.spec.SecretKeySpec;
 
 
@@ -41,6 +42,10 @@ public class Cryptograph {
     
     public String decrypt(String toDecrypt){
         String decryptedStr = null;
+        if (toDecrypt == null || toDecrypt.trim().isEmpty()) {
+            System.out.println("Warning: Attempted to decrypt a null or empty password.");
+            return ""; // Return empty string so the .equals() check in the Servlet just fails normally
+        }
         try{
             Cipher cipher = Cipher.getInstance(this.algo+"/"+this.mode+"/"+this.padding);
             final SecretKeySpec secretKey = new SecretKeySpec(this.keyBytes,this.algo);

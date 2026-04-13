@@ -23,6 +23,8 @@ import miscs.NullValueException;
 import miscs.User;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.servlet.ServletContext;
+import miscs.Cryptograph;
 
 /**
  *
@@ -31,11 +33,16 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
 
     private Connection conn;
+    private Cryptograph cryptographer;
     
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
         try{
+            ServletContext context = getServletContext();
+            cryptographer = new Cryptograph(context.getInitParameter("secretKey"),
+                context.getInitParameter("cipherAlgorithm"),context.getInitParameter("cipherMode"),context.getInitParameter("cipherPadding"));
+            
             Class.forName(config.getInitParameter("jdbcClassName"));
             System.out.println("Connecting to jdbcClassName: " + config.getInitParameter("jdbcClassName"));
             String username = config.getInitParameter("dbUserName");
@@ -84,7 +91,8 @@ public class LoginServlet extends HttpServlet {
                     ResultSet rs = ps.executeQuery();
     //              while loop to find each row if anything matches
                     if (rs.next()) {
-                        if(rs.getString("password").equals(password)){
+                        //decrypt password and check for match
+                        if(cryptographer.decrypt(rs.getString("password")).equals(password)){
                         String role = rs.getString("Role");
                         HttpSession session = request.getSession(true);
                         User currentuser = new User();

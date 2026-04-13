@@ -35,7 +35,7 @@
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="text" id="password" name="password" autocomplete="off">
+                <input type="text" id="password" name="password" autocomplete="off" maxlength="20">
             </div>
 
             <div class="form-group">
