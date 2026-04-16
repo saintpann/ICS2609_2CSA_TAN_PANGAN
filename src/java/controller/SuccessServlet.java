@@ -12,11 +12,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import miscs.Cryptograph;
 
 /**
  *
@@ -24,11 +26,15 @@ import javax.servlet.http.HttpSession;
  */
 public class SuccessServlet extends HttpServlet {
     private Connection conn;
+    private Cryptograph cryptographer;
     
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
         conn = new EstablishConnection(getServletContext()).getConnection();
+        ServletContext context = getServletContext();
+            cryptographer = new Cryptograph(context.getInitParameter("secretKey"),
+                context.getInitParameter("cipherAlgorithm"),context.getInitParameter("cipherMode"),context.getInitParameter("cipherPadding"));
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -57,7 +63,7 @@ public class SuccessServlet extends HttpServlet {
                     String pass = rs.getString("Password");
                     String urole = rs.getString("Role");
 
-                    list.add(new String[]{user,pass,urole});
+                    list.add(new String[]{user,cryptographer.decrypt(pass),urole});
                 }
                 request.setAttribute("list", list);
             }
