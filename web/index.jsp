@@ -21,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://www.google.com/recaptcha/api.js" asynch defer></script>
 </head>
 <body>
 
@@ -30,7 +31,7 @@
 
     <main class="content-container">
         <div class="login-card">
-            <form action ="logic" method="POST">
+            <form action ="CaptchaServlet" method="POST">
                 <h1>Login</h1>
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -41,7 +42,10 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" autocomplete="off">
             </div>
-
+                
+            <div class="text-center">
+                <div class="g-recaptcha" data-sitekey="6LfR17osAAAAAPbAHLNDt_1tKx2wz590ktorCjxZ"></div>
+            </div>
             <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>

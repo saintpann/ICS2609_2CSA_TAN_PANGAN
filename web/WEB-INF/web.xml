@@ -52,8 +52,6 @@
         <param-name>databaseName</param-name>
         <param-value>LoginDB</param-value>
     </context-param>
-    
-    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.LoginServlet</servlet-class>
@@ -87,23 +85,23 @@
             <param-value>LoginDB</param-value>
         </init-param>
     </servlet>
-     
+    <servlet>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <servlet-class>controller.CaptchaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/logic</url-pattern>
     </servlet-mapping>
-    
     <listener>
         <listener-class>
             listener.HeaderFooter
         </listener-class>
     </listener>
-    
     <servlet>
         <servlet-name>HeaderFooter</servlet-name>
         <servlet-class>listener.HeaderFooter</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>SuccessServlet</servlet-name>
         <servlet-class>controller.SuccessServlet</servlet-class>
@@ -112,7 +110,6 @@
         <servlet-name>SuccessServlet</servlet-name>
         <url-pattern>/success</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>CRUDServlet</servlet-name>
         <servlet-class>controller.CRUDServlet</servlet-class>
@@ -121,7 +118,6 @@
         <servlet-name>CRUDServlet</servlet-name>
         <url-pattern>/crud</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
@@ -130,7 +126,6 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>AddServlet</servlet-name>
         <servlet-class>controller.AddServlet</servlet-class>
@@ -139,7 +134,6 @@
         <servlet-name>AddServlet</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>UpdateServlet</servlet-name>
         <servlet-class>controller.UpdateServlet</servlet-class>
@@ -148,7 +142,6 @@
         <servlet-name>UpdateServlet</servlet-name>
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
@@ -157,8 +150,10 @@
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    
-    
+    <servlet-mapping>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <url-pattern>/CaptchaServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             5
@@ -167,7 +162,6 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
     <error-page>
         <exception-type>miscs.NoUsernameFoundException</exception-type>
         <location>/WEB-INF/jsps/errorpages/error_1.jsp</location>
@@ -187,6 +181,10 @@
     <error-page>
         <exception-type>miscs.NullValueException</exception-type>
         <location>/WEB-INF/jsps/errorpages/noLoginCredentials.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>miscs.InvalidCaptcha</exception-type>
+        <location>/WEB-INF/jsps/errorpages/invalidCaptcha.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>

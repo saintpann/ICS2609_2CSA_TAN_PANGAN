@@ -20,6 +20,7 @@ import miscs.IncorrectPassException;
 import miscs.IncorrectUserPassException;
 import miscs.NoUsernameFoundException;
 import miscs.NullValueException;
+import miscs.InvalidCaptcha;
 import miscs.User;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -71,16 +72,22 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NullValueException,
             IncorrectPassException, IncorrectUserPassException,
-            NoUsernameFoundException {
+            NoUsernameFoundException, InvalidCaptcha {
 //        try {
             //Checking Database if the username and password exists
             if (conn!=null){
                 //System.out.println("Getting Connectio n..");
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
+                String captcha = request.getParameter("g-recaptcha-response");
 //                checks if username and password are blank
                 String message = "";
                 try{
+                    //captcha verification
+                    if (captcha == null){
+                        message = "Invalid Captcha";
+                        throw new InvalidCaptcha(message);
+                    }
                     if(username.trim().equals("")&&password.trim().equals("")){                    
                         message = "Username and Password cannot be blank";
                         System.out.println("Should go to noLoginCredentials.jsp");
