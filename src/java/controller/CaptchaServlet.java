@@ -64,13 +64,16 @@ public class CaptchaServlet extends HttpServlet {
     private boolean verifyCaptcha(String gRecaptchaResponse) throws IOException {
         String url = "https://www.google.com/recaptcha/api/siteverify";
         String params = "secret=" + SECRET_KEY +"&response=" + gRecaptchaResponse;
-        
+        //creates connection
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("POST");
         con.setDoOutput(true);
+        //sends connection
         try (OutputStream os = con.getOutputStream()) {
             os.write(params.getBytes());
         }
+        
+        
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         StringBuilder response = new StringBuilder();
         String inputLine;
