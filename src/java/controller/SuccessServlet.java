@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.io.File;
 import miscs.AuthenticationException;
 import miscs.EstablishConnection;
 import miscs.User;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import miscs.Cryptograph;
+import utils.Report;
 
 /**
  *
@@ -52,6 +54,19 @@ public class SuccessServlet extends HttpServlet {
             throw new AuthenticationException(message);
         }
         String role = currentuser.getRole();
+        
+        //CREATE REPORT
+        String folderPath = getServletContext().getRealPath("/Reports");
+        File reportsDir = new File(folderPath);
+        if(reportsDir.exists()){
+            reportsDir.mkdirs();
+        }
+        
+        String filename = currentuser.getUsername() + "_Report_" +System.currentTimeMillis() + ".pdf";
+        String saveLoc = folderPath + File.separator + filename;
+        
+        List<User> allUsers = null;
+        
         if(role.equals("Admin")){
             List<String[]> list = new ArrayList<>();
             try{
@@ -71,6 +86,18 @@ public class SuccessServlet extends HttpServlet {
                 System.out.println("Connection Error");
             }
         }
+        
+        //GENERATE PDF
+        try{
+            Report rep = new Report();
+            rep.generate(currentuser.getUsername(),currentuser.getPassword(),currentuser.getRole(),allUsers,saveLoc);
+            System.out.println("SUCCESS");
+        }
+        catch(Exception e){
+            System.out.println("ERROR");
+            e.printStackTrace();
+        }
+        
         request.getRequestDispatcher("success.jsp").forward(request, response);
     }
 
