@@ -58,6 +58,16 @@ h1 {
     box-sizing: border-box;
 }
 
+.report-card{
+    background-color: #cccccc;
+    padding: 50px 40px;
+    border-radius: 15px;
+    width: 100%;
+    min-width: 550px;
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
 /* --- Pill Footer --- */
 .pill-footer {
     background-color: #3b3e51;

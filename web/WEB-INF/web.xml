@@ -89,6 +89,10 @@
         <servlet-name>CaptchaServlet</servlet-name>
         <servlet-class>controller.CaptchaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GenerateReportServlet</servlet-name>
+        <servlet-class>controller.GenerateReportServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/logic</url-pattern>
@@ -153,6 +157,10 @@
     <servlet-mapping>
         <servlet-name>CaptchaServlet</servlet-name>
         <url-pattern>/CaptchaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenerateReportServlet</servlet-name>
+        <url-pattern>/GenerateReportServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

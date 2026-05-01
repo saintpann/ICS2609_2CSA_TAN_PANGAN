@@ -44,7 +44,11 @@
                 <div class="success-div-btn">
                     <div><h2>Welcome <strong><%=username%></strong></h2></div>
                     <div class="success-div-btn">
-                        <div></div>
+                        <div>
+                            <form action="GenerateReportServlet" method="POST">
+                                <button type="submit" class="submit-btn" value="">Generate Report</button>
+                            </form>
+                        </div>
                         <div class="success-div-btn">
                             <form action="add" method="POST">
                                 <button type="submit" class="submit-btn" value="add">Add</button>

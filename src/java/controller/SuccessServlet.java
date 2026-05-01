@@ -6,6 +6,7 @@ import miscs.AuthenticationException;
 import miscs.EstablishConnection;
 import miscs.User;
 import java.io.IOException;
+import java.nio.file.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import miscs.Cryptograph;
-import utils.Report;
+import miscs.Report;
 
 /**
  *
@@ -55,17 +56,18 @@ public class SuccessServlet extends HttpServlet {
         }
         String role = currentuser.getRole();
         
-        //CREATE REPORT
-        String folderPath = getServletContext().getRealPath("/Reports");
-        File reportsDir = new File(folderPath);
-        if(reportsDir.exists()){
+        String basedir = getServletContext().getRealPath("/");
+        Path folderPath = Paths.get(basedir+"/reports");
+        File reportsDir = new File(folderPath.toString());
+        System.out.println(reportsDir.getAbsolutePath().toString());
+        if(!reportsDir.exists()){
             reportsDir.mkdirs();
         }
         
         String filename = currentuser.getUsername() + "_Report_" +System.currentTimeMillis() + ".pdf";
-        String saveLoc = folderPath + File.separator + filename;
+        String saveLoc = folderPath.toString() + File.separator + filename;
         
-        List<User> allUsers = null;
+        List<String[]> allUsers = null;
         
         if(role.equals("Admin")){
             List<String[]> list = new ArrayList<>();
@@ -80,23 +82,29 @@ public class SuccessServlet extends HttpServlet {
 
                     list.add(new String[]{user,cryptographer.decrypt(pass),urole});
                 }
+                allUsers = list;
                 request.setAttribute("list", list);
             }
             catch(SQLException e){
                 System.out.println("Connection Error");
             }
         }
+        Object params[] = new Object[]{currentuser.getUsername(),currentuser.getPassword(),currentuser.getRole(),allUsers,saveLoc};
         
-        //GENERATE PDF
-        try{
-            Report rep = new Report();
-            rep.generate(currentuser.getUsername(),currentuser.getPassword(),currentuser.getRole(),allUsers,saveLoc);
-            System.out.println("SUCCESS");
+        HttpSession htps = request.getSession(false);
+        if (htps != null){
+            htps.setAttribute("paremeters", params);
         }
-        catch(Exception e){
-            System.out.println("ERROR");
-            e.printStackTrace();
-        }
+//        //GENERATE PDF
+//        try{
+//            Report rep = new Report();
+//            rep.generate(currentuser.getUsername(),currentuser.getPassword(),currentuser.getRole(),allUsers,saveLoc);
+//            System.out.println("SUCCESS");
+//        }
+//        catch(Exception e){
+//            System.out.println("ERROR");
+//            e.printStackTrace();
+//        }
         
         request.getRequestDispatcher("success.jsp").forward(request, response);
     }
