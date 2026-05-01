@@ -72,14 +72,13 @@ public class Report {
             document.add(new Paragraph(" ")); // Blank line
 
             // 4. Content
-            PdfPTable table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
 //            table.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.setHorizontalAlignment(Element.ALIGN_MIDDLE);
 
             if (isAdmin) {
                 table.addCell(new Phrase("Username", boldTitleFont));
-                table.addCell(new Phrase("Password", boldTitleFont));
                 table.addCell(new Phrase("Role", boldTitleFont));
                 if (allUsers != null) {
                     Iterator uit = allUsers.iterator();
@@ -87,28 +86,16 @@ public class Report {
                     while (uit.hasNext()){
                         String[] u = (String[]) uit.next();
                         // iterates through the username, password, role
+                        int x = 1;
                         for (String i : u){
                             if (i.equals(username) && !b){
                                 i+=" *";
                                 b = true;
                             }
-                            table.addCell(i);
+                            if(!(x%3==2))table.addCell(i);
+                            x++;
                         }
-//                        table.completeRow();
-//                        String displayUsername = u.getUsername();
-//                        if (displayUsername.equals(username)) 
-//                            displayUsername += " *";
-//                        table.addCell(displayUsername);
-//                        table.addCell(u.getPassword());
-//                        table.addCell(u.getRole());
-                        
                     }
-//                    for (User u : allUsers) {
-//                        String displayUsername = u.getUsername();
-//                        if (displayUsername.equals(username)) displayUsername += " *";
-//                        table.addCell(displayUsername);
-//                        table.addCell(u.getRole());
-//                    }
                 }
             } else {
                 table.addCell(new Phrase("Username", boldTitleFont));
@@ -119,33 +106,6 @@ public class Report {
             
             document.add(table);
             
-            
-            
-            
-//            public class FooterEvent extends PdfPageEventHelper {
-//                private String ownerName;
-//                private Font font = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
-//
-//                public FooterEvent(String ownerName) {
-//                    this.ownerName = ownerName;
-//                }
-//
-//                @Override
-//                public void onEndPage(PdfWriter writer, Document document) {
-//                    PdfContentByte cb = writer.getDirectContent();
-//
-//                    // Add Owner Name (Bottom Left)
-//                    Phrase namePhrase = new Phrase(ownerName, font);
-//                    ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, namePhrase,
-//                            document.left(), document.bottom() - 20, 0);
-//
-//                    // Add Page Number (Bottom Right)
-//                    String pageText = "Page " + writer.getPageNumber();
-//                    Phrase pagePhrase = new Phrase(pageText, font);
-//                    ColumnText.showTextAligned(cb, Element.ALIGN_RIGHT, pagePhrase,
-//                            document.right(), document.bottom() - 20, 0);
-//                }
-//            }
             document.close();
             
 
@@ -153,4 +113,5 @@ public class Report {
             e.printStackTrace();
         }
     }
+    
 }
