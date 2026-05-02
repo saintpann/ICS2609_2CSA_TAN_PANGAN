@@ -114,12 +114,16 @@ public class Report {
                 cell1.setPaddingTop(8f);
                 cell1.setPaddingBottom(8f);
                 cell1.setPaddingLeft(5f);  // Specific side padding
-                PdfPCell cell2 = new PdfPCell(new Phrase("Role", boldTitleFont));
+                PdfPCell cell2 = new PdfPCell(new Phrase("Password", boldTitleFont));
                 cell2.setPaddingLeft(5f);  // Specific side padding
                 cell2.setPaddingTop(8f);
                 cell2.setPaddingBottom(8f);
+                PdfPCell cell3 = new PdfPCell(new Phrase(username));
+                PdfPCell cell4 = new PdfPCell(new Phrase(password));
                 table.addCell(cell1);
                 table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
             }
             
             document.add(table);
