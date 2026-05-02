@@ -20,7 +20,7 @@ public class Report {
         try {
             Document document;
             boolean isAdmin = "admin".equalsIgnoreCase(role);
-
+            
             // 1. Page Size
             if (isAdmin) {
                 document = new Document(PageSize.LETTER); 
@@ -78,8 +78,16 @@ public class Report {
             table.setHorizontalAlignment(Element.ALIGN_MIDDLE);
 
             if (isAdmin) {
-                table.addCell(new Phrase("Username", boldTitleFont));
-                table.addCell(new Phrase("Role", boldTitleFont));
+                PdfPCell cell1 = new PdfPCell(new Phrase("Username", boldTitleFont));
+                cell1.setPaddingTop(8f);
+                cell1.setPaddingBottom(8f);
+                cell1.setPaddingLeft(5f);  // Specific side padding
+                PdfPCell cell2 = new PdfPCell(new Phrase("Role", boldTitleFont));
+                cell2.setPaddingLeft(5f);  // Specific side padding
+                cell2.setPaddingTop(8f);
+                cell2.setPaddingBottom(8f);
+                table.addCell(cell1);
+                table.addCell(cell2);
                 if (allUsers != null) {
                     Iterator uit = allUsers.iterator();
                     boolean b = false;
@@ -92,16 +100,26 @@ public class Report {
                                 i+=" *";
                                 b = true;
                             }
-                            if(!(x%3==2))table.addCell(i);
+                            PdfPCell cell3 = new PdfPCell(new Phrase(i));
+                            cell3.setPaddingTop(8f);
+                            cell3.setPaddingBottom(8f);
+                            cell3.setPaddingLeft(5f);  // Specific side padding
+                            if(!(x%3==2))table.addCell(cell3);
                             x++;
                         }
                     }
                 }
             } else {
-                table.addCell(new Phrase("Username", boldTitleFont));
-                table.addCell(new Phrase("Password", boldTitleFont));
-                table.addCell(username);
-                table.addCell(password);
+                PdfPCell cell1 = new PdfPCell(new Phrase("Username", boldTitleFont));
+                cell1.setPaddingTop(8f);
+                cell1.setPaddingBottom(8f);
+                cell1.setPaddingLeft(5f);  // Specific side padding
+                PdfPCell cell2 = new PdfPCell(new Phrase("Role", boldTitleFont));
+                cell2.setPaddingLeft(5f);  // Specific side padding
+                cell2.setPaddingTop(8f);
+                cell2.setPaddingBottom(8f);
+                table.addCell(cell1);
+                table.addCell(cell2);
             }
             
             document.add(table);
