@@ -37,6 +37,9 @@
             <% if(role.equals("Guest")) {%>
             <h2><%=username%></h2>
             <p>Role: <strong><%=role%></strong></p>
+            <form action="GenerateReportServlet" method="POST" >
+                <button type="submit" class="submit-btn" value="" style = "padding: 10px;">Generate Report</button>
+            </form>
             <form action="logout">
                 <button type="submit" class="submit-gst-btn">Logout</button>
             </form>
